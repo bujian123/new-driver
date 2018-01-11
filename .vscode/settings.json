@@ -1,0 +1,6 @@
+{
+    "path-autocomplete.extensionOnImport": true,
+    "files.associations": {
+        "*.vue": "html"
+    }
+}
