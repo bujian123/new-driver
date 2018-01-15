@@ -30,16 +30,17 @@
     methods: {
       login() {
         let params = {
-          username: '15980996677',
+          username: '12345678908',
           password: '123456'
-        },that = this;
+        }, that = this;
 
         this.$api.post('/wechat/login', params, function (data) {
-          if (sessionStorage.setItem('loginData', JSON.stringify(data.obj)))
-          that.$router.push({
-            path: '/home'
-          });
-
+          if (JSON.stringify(data.obj)) {
+            sessionStorage.setItem('loginData', JSON.stringify(data.obj))
+            that.$router.push({
+              path: '/home'
+            });
+          }
         }, function (data) {
           console.log(data.msg)
         })
