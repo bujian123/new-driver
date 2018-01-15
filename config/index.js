@@ -10,7 +10,15 @@ module.exports = {
         // Paths
         assetsSubDirectory: 'static',
         assetsPublicPath: '/',
-        proxyTable: {},
+        proxyTable: {
+            '/tms/**': {
+                target: 'http://180.76.51.106:8080',
+
+                // 你接口的域名
+                secure: false,
+                changeOrigin: false,
+            }
+        },
 
         // Various Dev Server settings
         host: 'localhost', // can be overwritten by process.env.HOST
