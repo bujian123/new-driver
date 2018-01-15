@@ -32,7 +32,7 @@
     watch: {
       $route(curVal, from) {
         this.backSrc = from.path;
-       if(!sessionStorage.getItem('loginData'))  this.$router.push('/login')
+      //  if(!sessionStorage.getItem('loginData'))  this.$router.push('/login')
       }
     },
     methods: {
