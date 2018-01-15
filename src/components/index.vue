@@ -1,14 +1,15 @@
+<!-- 主界面 -->
 <template>
   <div >
       <router-view class="main_body" />
-      <mt-tabbar v-model="selected">
+      <mt-tabbar   v-model="selected">
        <mt-tab-item id="tab1">
         <div class="dongtai"></div>
-         动态
+         主页
        </mt-tab-item>
        <mt-tab-item id="tab2">
             <div class="gongzuotai"></div>
-         工作台
+         通告
        </mt-tab-item>
        <mt-tab-item id="tab3">
             <div class="wode"></div>
@@ -20,36 +21,37 @@
 
 <script>
     export default {
-        name: 'HelloWorld',
+        name: 'index',
         data() {
             return {
-                selected: 'tab1'
+                selected: 'tab1',
             }
-
+        },
+        mounted () {
+            this.$router.push({
+                  path: 'home'
+             })  
         },
         watch: {
             selected(curVal, oldVal) {
                 switch (curVal) {
                     case 'tab1':
                         this.$router.push({
-                            'path': '/dongtai'
+                            'path': 'home'
                         })
                         break;
                     case 'tab2':
                         this.$router.push({
-                            'path': '/workbench'
+                            'path': 'notice'
                         })
                         break;
                     case 'tab3':
                         this.$router.push({
-                            'path': '/mine'
+                            'path': 'mine'
                         })
                         break;
                 };
-            },
-            $route(curVal) {
-                console.log(curVal);
-            }
+            }    
         }
     }
 </script>
