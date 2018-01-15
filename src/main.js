@@ -6,12 +6,12 @@ import 'mint-ui/lib/style.css'
 import App from './App'
 import router from './router'
 import '../static/js/rem.js'
-import footShow from './components/footShow.js'
-import workbench from './components/workbench/index'
+// import footShow from './components/footShow.js'
+// import workbench from './components/workbench/index'
 Vue.use(Mint)
-Vue.use(footShow)
+// Vue.use(footShow)
 Vue.config.productionTip = false
-Vue.use(workbench)
+// Vue.use(workbench)
     /* eslint-disable no-new */
 new Vue({
     el: '#app',
