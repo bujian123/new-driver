@@ -7,6 +7,7 @@ import home from '@/components/home' //主页
 import operations from '@/components/home/operations' //业务操作
 import login from '@/components/login' //登录
 import cost from '@/components/home/cost' //费用报销
+import detail from '@/components/detail' //派车单详情页面
 Vue.use(Router)
 
 export default new Router({
@@ -63,6 +64,14 @@ export default new Router({
       isBack: true
     },
     component: cost,
+  } ,{
+    path: '/detail',
+    name: 'detail',
+    meta: {
+      header: '派车单详情信息',
+      isBack: true
+    },
+    component: detail,
   }
   ],
   mode: 'history'
