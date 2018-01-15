@@ -28,9 +28,9 @@
             }
         },
         mounted () {
-            this.$router.push({
-                  path: 'home'
-             })  
+            // this.$router.push({
+            //       path: 'home'
+            //  })  
         },
         watch: {
             selected(curVal, oldVal) {

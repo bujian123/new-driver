@@ -1,15 +1,21 @@
 <!-- 登陆 -->
 <template>
   <div>
-    <img src="../../static/images/mine/3@2x.png" />
-    <form>
-      <mt-field label="账号" placeholder="请输入账号" v-model="userName"></mt-field>
-      <mt-field label="密码" placeholder="请输入密码" type="password" v-model="password"></mt-field>
-      <div style="display:flex;justify-content:center">
-        <mt-button @click='login' size="large" style="width:50%">large</mt-button>
+    <img style="width:100%" src="../../static/images/login/loginLogo.png" />
+    <form style="margin-top:1rem;padding-left:0.6rem;padding-right:1.25rem;margin-bottom:0.62rem">
+      <div class="fomrGroup">
+        <img src="../../static/images/login/user.png">
+        <mt-field placeholder="请输入用户名" v-model="username"></mt-field>
       </div>
-    </form>
+      <div class="fomrGroup">
+        <img src="../../static/images/login/user.png">
+        <mt-field placeholder="请输入密码" type="password" v-model="password"></mt-field>
+      </div>
 
+    </form>
+    <div style="display:flex;justify-content:center">
+      <mt-button type="primary" @click='login' size="large" style="margin:0 0.625rem">登录</mt-button>
+    </div>
 
   </div>
 </template>
@@ -17,34 +23,25 @@
   export default {
     data() {
       return {
-        userName: '',
+        username: '',
         password: ''
       }
     },
     methods: {
       login() {
-        const that = this;
-        this.$http.post('/Login', qs.stringify(this.form)).then(function (res) {
-          var res = res.data;
-          that.fullscreenLoading = false;
-          if (res.result == 0) {
-            sessionStorage.setItem('loginName', that.form.userName);
-            that.$router.push({
-              'path': '/index/addArticle'
-            })
-          } else if (res.result == 1) {
-            that.$message({
-              message: '用户名或密码错误',
-              type: 'warning'
-            });
-          }
-        }).catch(function (error) {
-          console.log(error);
-          that.fullscreenLoading = false;
-          that.$message({
-            message: '服务器出现问题！请联系金爸爸',
-            type: 'warning'
+        let params = {
+          username: '15980996677',
+          password: '123456'
+        },that = this;
+
+        this.$api.post('/wechat/login', params, function (data) {
+          if (sessionStorage.setItem('loginData', JSON.stringify(data.obj)))
+          that.$router.push({
+            path: '/home'
           });
+
+        }, function (data) {
+          console.log(data.msg)
         })
       }
     }
@@ -52,6 +49,15 @@
 
 </script>
 <style scoped>
+  .fomrGroup {
+    display: flex;
+    display: -webkit-flex;
+    margin-bottom: .1rem;
+    align-items: center;
+  }
 
-
+  .fomrGroup img {
+    width: 0.75rem;
+    height: 0.75rem
+  }
 </style>
