@@ -5,57 +5,65 @@ import mine from '@/components/mine' //我的
 import notice from '@/components/notice' //通告
 import home from '@/components/home' //主页
 import operations from '@/components/home/operations' //业务操作
-import login from '@/components/login' //业务操作
+import login from '@/components/login' //登录
+import cost from '@/components/home/cost' //费用报销
 Vue.use(Router)
 
 export default new Router({
   routes: [{
-      path: '/',
-      name: 'index',
-      component: index,
+    path: '/',
+    name: 'index',
+    component: index,
+    meta: {
+      header: '曙光TMS'
+    },
+    children: [{
+      path: '/home',
+      name: 'home',
       meta: {
         header: '曙光TMS'
       },
-      children: [{
-        path: '/home',
-        name: 'home',
-        meta: {
-          header: '曙光TMS'
-        },
-        component: home,
-      }, {
-        path: '/notice',
-        name: 'notice',
-        meta: {
-          header: '通告'
-        },
-        component: notice
-      }, {
-        path: '/mine',
-        name: 'mine',
-        meta: {
-          header: '我的'
-        },
-        component: mine
-      }],
-    },
-    {
-      path: '/operations',
-      name: 'operations',
+      component: home,
+    }, {
+      path: '/notice',
+      name: 'notice',
       meta: {
-        header: '派车单-业务操作',
-        isBack: true
+        header: '通告'
       },
-      isBack: true,
-      component: operations,
-    },{
-        path: '/login',
-        name: 'login',
-        meta: {
-          header: '曙光TMS'
-        },
-        component: login,
-    }
+      component: notice
+    }, {
+      path: '/mine',
+      name: 'mine',
+      meta: {
+        header: '我的'
+      },
+      component: mine
+    }],
+  },
+  {
+    path: '/operations',
+    name: 'operations',
+    meta: {
+      header: '派车单-业务操作',
+      isBack: true
+    },
+    component: operations,
+  }, {
+    path: '/login',
+    name: 'login',
+    meta: {
+      header: '曙光TMS'
+    },
+    component: login,
+  }, {
+    path: '/cost',
+    name: 'cost',
+    meta: {
+      header: '费用报销',
+      isBack: true
+    },
+    component: cost,
+  }
   ],
   mode: 'history'
 })

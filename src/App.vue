@@ -32,6 +32,7 @@
     watch: {
       $route(curVal, from) {
         this.backSrc = from.path;
+       if(!sessionStorage.getItem('loginData'))  this.$router.push('/login')
       }
     },
     methods: {
@@ -78,5 +79,8 @@
     text-decoration: none;
     color: black;
   }
-
+a{
+  color: inherit;
+  text-decoration: none;
+}
 </style>
