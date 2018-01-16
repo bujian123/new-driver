@@ -69,11 +69,13 @@
     font-size: .3rem;
     height: 100%;width: 100%;
   }
-
+#app i{
+  color: #fff
+}
   header {
     background: #0489ff;
     color: white;
-    font-size: 0.65rem;
+    font-size: 0.4rem;
     height: 1.2rem;
     line-height: 1.3rem;
     position: relative;
