@@ -1,22 +1,22 @@
 <!-- 主界面 -->
 <template>
-  <div >
-      <router-view class="main_body" />
-      <mt-tabbar   v-model="selected">
-       <mt-tab-item id="tab1">
-        <div class="dongtai"></div>
-         主页
-       </mt-tab-item>
-       <mt-tab-item id="tab2">
-            <div class="gongzuotai"></div>
-         通告
-       </mt-tab-item>
-       <mt-tab-item id="tab3">
-            <div class="wode"></div>
-         我的
-       </mt-tab-item>
-      </mt-tabbar>
-  </div> 
+    <div>
+        <router-view class="main_body" />
+        <mt-tabbar v-model="selected">
+            <mt-tab-item id="tab1">
+                <div class="dongtai"></div>
+                主页
+            </mt-tab-item>
+            <mt-tab-item id="tab2">
+                <div class="gongzuotai"></div>
+                通告
+            </mt-tab-item>
+            <mt-tab-item id="tab3">
+                <div class="wode"></div>
+                我的
+            </mt-tab-item>
+        </mt-tabbar>
+    </div>
 </template>
 
 <script>
@@ -27,7 +27,7 @@
                 selected: 'tab1',
             }
         },
-        mounted () {
+        mounted() {
             // this.$router.push({
             //       path: 'home'
             //  })  
@@ -51,7 +51,7 @@
                         })
                         break;
                 };
-            }    
+            }
         }
     }
 </script>
@@ -61,12 +61,12 @@
     li {
         list-style-type: none;
     }
-    
+
     a {
         text-decoration: none;
         color: inherit;
     }
-    
+
     .main_body {
         position: absolute;
         bottom: 56px;
@@ -77,19 +77,19 @@
         background: #f3f3f3;
         border-bottom: 2px solid #e9e9e9
     }
-    
+
     .mint-tabbar {
         background: #fff;
     }
-    
+
     .mint-tabbar>.mint-tab-item.is-selected {
         background: #ffffff;
     }
-    
+
     .mint-tabbar>.mint-tab-item.is-selected .dongtai {
         background-image: url('../../static/images/tabbar/1.1@2x.png');
     }
-    
+
     .mint-tabbar>.mint-tab-item .dongtai {
         background-image: url('../../static/images/tabbar/1@2x.png');
         background-size: 100% 100%;
@@ -97,11 +97,11 @@
         height: 0.6rem;
         margin: 0 auto 0.2rem;
     }
-    
+
     .mint-tabbar>.mint-tab-item.is-selected .gongzuotai {
         background-image: url('../../static/images/tabbar/2.1@2x.png');
     }
-    
+
     .mint-tabbar>.mint-tab-item .gongzuotai {
         background-image: url('../../static/images/tabbar/2@2x.png');
         background-size: 100% 100%;
@@ -109,11 +109,11 @@
         height: 0.6rem;
         margin: 0 auto 0.2rem;
     }
-    
+
     .mint-tabbar>.mint-tab-item.is-selected .wode {
         background-image: url('../../static/images/tabbar/3.1@2x.png');
     }
-    
+
     .mint-tabbar>.mint-tab-item .wode {
         background-image: url('../../static/images/tabbar/3@2x.png');
         background-size: 100% 100%;

@@ -8,6 +8,7 @@ import operations from '@/components/home/operations' //业务操作
 import login from '@/components/login' //登录
 import cost from '@/components/home/cost' //费用报销
 import detail from '@/components/detail' //派车单详情页面
+import nine1 from '@/components/home/nine/nine1' //清罐
 Vue.use(Router)
 
 export default new Router({
@@ -72,12 +73,16 @@ export default new Router({
       isBack: true
     },
     component: detail,
+  } ,{
+    path: '/nine1',
+    name: 'nine1',
+    meta: {
+      header: '清罐',
+      isBack: true
+    },
+    component: nine1,
   }
   ],
   mode: 'history'
 })
-var formaterTimeZone = function (data, TZ) {
-  var timestamp = Date.parse(new Date());
-  timestamp = timestamp / 1000 - TZ * 3600000;
-  return new Date(timestamp);
-}
+
