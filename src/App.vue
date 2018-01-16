@@ -28,11 +28,12 @@
     },
     mounted() {
       console.log(this.$route);
+       //  if(!sessionStorage.getItem('loginData'))  this.$router.push('/login')
     },
     watch: {
       $route(curVal, from) {
         this.backSrc = from.path;
-      //  if(!sessionStorage.getItem('loginData'))  this.$router.push('/login')
+     
       }
     },
     methods: {
