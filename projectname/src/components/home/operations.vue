@@ -1,15 +1,15 @@
 <!-- 业务操作 -->
 <template>
     <div>
-        <mt-navbar v-model="selected">
+        <mt-navbar v-model="selected" class="tabDiv">
             <mt-tab-item id="1">待执行</mt-tab-item>
             <mt-tab-item id="2">执行中</mt-tab-item>
             <mt-tab-item id="3">已完成</mt-tab-item>
         </mt-navbar>
-
-        <mt-tab-container v-model="selected">
+     
+        <mt-tab-container v-model="selected" style="background: #eeeeee">
             <mt-tab-container-item id="1">
-                <div v-for='(item,index) in unfinshData.data' style="text-align: left; padding: 0.375rem 0.3125rem 0 0.3125rem;">
+                <div v-for='(item,index) in unfinshData.data' class="orderList">
                     <div class="orderTop" >
                         <p style="font-weight: bold;font-size: .4rem;text-align: left;">{{item.dispatch_no}}</p>
                         <p>
@@ -42,11 +42,11 @@
                         <div style="width:7.53125rem">                 
                             <div>
                                 <p>装货前需要清罐
-                                    <span v-if='item.is_clean_pot == 0' style="font-size:.4rem;color:rgb(255, 165, 0)">待清灌</span>
-                                    <span v-if='item.is_clean_pot == 1' style="font-size:.4rem;color:rgb(255, 165, 0)">已清灌</span>
+                                    <span v-if='item.is_clean_pot == 0' style="font-size:.4rem;color:rgb(255, 165, 0);padding-left: .3rem;">待清灌</span>
+                                    <span v-if='item.is_clean_pot == 1' style="font-size:.4rem;color:rgb(255, 165, 0);padding-left: .3rem;">已清灌</span>
                                 </p>
                                 <p>已抵达
-                                    <span>{{item.time_diff}}小时，请尽快执行</span>
+                                    <span style="color:red">{{item.time_diff}}</span>小时，请尽快执行
                                 </p>
                             </div>
                         </div>
@@ -107,16 +107,35 @@
     }
 </script>
 <style scoped>
+    .tabDiv{
+        background: #0489ff;color: #fff
+    }
     .orderTop{
-        border-bottom:1px solid #ccc;padding:0.4375rem 0
+        border-bottom:1px solid #ccc;
     }
     .orderCenter{
-       display:flex;padding:0.4375rem 0;border-bottom:1px solid #ccc
+       display:flex;padding:0.2rem 0;border-bottom:1px solid #ccc
     }
     .orderBottom{
-        display:flex;padding:0.4375rem 0;border-bottom:1px solid #ccc
+        display:flex;padding:0.2rem 0;border-bottom:1px solid #ccc
     }
     p{
-        margin: .2rem 0;
+        margin: 0 0 .2rem 0;
     }
+    .orderList{
+        text-align: left;
+    padding: 0.2rem 0.3125rem 0 0.3125rem;
+    margin-bottom: .1rem;
+    background: #fff;
+    box-sizing: border-box
+    }
+</style>
+<style>
+.mint-navbar .mint-tab-item.is-selected{
+    border-bottom: 2px solid #fff;
+    color: #fff;
+    font-weight: bold;
+    margin-bottom: -3px;
+    margin-bottom: .1rem;
+}
 </style>
