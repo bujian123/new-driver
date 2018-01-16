@@ -75,6 +75,15 @@ function apiAxios(method, url, params, success, failure) {
         })
 }
 
+function formatDate(now) { 
+    var year=now.getFullYear(); 
+    var month=now.getMonth()+1; 
+    var date=now.getDate(); 
+    var hour=now.getHours(); 
+    var minute=now.getMinutes(); 
+    var second=now.getSeconds(); 
+    return year+"-"+month+"-"+date
+    } 
 // 返回在vue模板中的调用接口
 export default {
     get: function(url, params, success, failure) {
@@ -88,5 +97,6 @@ export default {
     },
     delete: function(url, params, success, failure) {
         return apiAxios('DELETE', url, params, success, failure)
-    }
+    },
+    formatData:formatDate,
 }
