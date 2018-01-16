@@ -78,13 +78,13 @@
                         </p>
                         <p style="color:#808080;padding-right:0.875rem;display:flex;display:-webkit-flex;justify-content: space-between;">
                             <span>计划量：
-                                <span>{{item.plan_amount}}</span>
+                                <span>{{item.plan_amount}}</span>T
                             </span>
                             <span>装货量：
-                                <span>{{item.load_amount}}</span>
+                                <span>{{item.load_amount}}</span>T
                             </span>
                             <span>卸货量：
-                                <span>{{item.unload_amount}}</span>
+                                <span>{{item.unload_amount}}</span>T
                             </span>
                         </p>
                     </div>
@@ -147,10 +147,79 @@
             </mt-tab-container-item>
             <!-- 已完成 -->
             <mt-tab-container-item id="3">
-                <div>
-                    <span>运输日期</span>
-                    <span></span>
+                <div class="doingSelect">
+                    <div class="selecondition">
+                            <span class="dateLable">运输日期</span>
+                            <div class="dateRange">
+                                    <span style="padding-right: 0.625rem;">{{now}}</span>到<span style="padding-left: 0.625rem;">{{lastMonth}}</span>
+                            </div>
+                            
+                    </div>
+                    <div style="padding: 0.34375rem 0;">
+                            <mt-button @click='selectDoing'  type="primary" style="width:2.15rem;height:1rem" >查询</mt-button>
+                            <mt-button @click='resetDoing'  type="primary" style="width:2.15rem;height:1rem">重置</mt-button>
+                    </div>
                 </div>
+                <div v-for='(item,index) in finshedData.data' class="orderList">
+                        <div class="orderTop">
+                            <p style="font-weight: bold;font-size: .4rem;text-align: left;">
+                                <span style="padding-right:.75rem">{{item.dispatch_no}}</span>                            
+                            </p>
+                            <p>
+                                <span style="font-weight:bold">{{item.customer_name}}</span>
+                                <span style="padding:0 1.15625rem 0 0.78125rem">{{item.require_time_to}}</span>
+                                <span>{{item.shipper_city}}-{{item.consignee_city}}</span>
+                            </p>
+                            <p style="color:#808080;padding-right:0.875rem;display:flex;display:-webkit-flex;justify-content: space-between;">
+                                <span>装货量:
+                                    <span>{{item.load_amount}}</span>T
+                                </span>
+                                <span>卸货量：
+                                        <span>{{item.unload_amount}}</span>T
+                                    </span>
+                                <span>磅差：
+                                    <span style="color:red">{{item.difference_amount}}T</span>
+                                </span>
+                              
+                            </p>
+                        </div>
+                        <div class="orderCenter">
+                            <img style=" height: 0.8435rem;margin-right:0.375rem;" src="../../../static/images/home/shipper.png">
+                            <div style="flex-grow:1">
+                                <p>
+                                    <span style="padding-right:.2rem">{{item.shipper_city}}</span>
+                                    <span style="padding-right:.3rem">{{item.shipper_county}}</span>
+                                    <span>{{item.shipper_address}}</span>
+                                </p>
+                                <p style="color:#9E9E9E">
+                                    要求
+                                    <span style="padding:0.2rem;font-size:.4rem;color:#000">{{item.require_time_from}}</span>
+                                    抵达
+                                </p>
+                            </div>
+                            <span class="telPhone" @click='sendTel(item.shipper_contact_mobile)'>
+                                <img src="../../../static/images/home/tel2x.png">
+                            </span>
+                        </div>
+                        <div class="orderCenter">
+                            <img style=" height: 0.8435rem;margin-right:0.375rem;" src="../../../static/images/home/consignee.png">
+                            <div style="flex-grow:1">
+                                <p>
+                                    <span style="padding-right:.2rem">{{item.consignee_city}}</span>
+                                    <span style="padding-right:.3rem">{{item.consignee_county}}</span>
+                                    <span>{{item.consignee_address}}</span>
+                                </p>
+                                <p style="color:#9E9E9E">
+                                    要求
+                                    <span style="padding:0.2rem;font-size:.4rem;color:#000">{{item.require_time_to}}</span>
+                                    送达
+                                </p>
+                            </div>
+                            <span class="telPhone" @click='receive(item.consignee_contact_mobile)'>
+                                <img src="../../../static/images/home/tel2x.png">
+                            </span>
+                        </div>                      
+                    </div>
             </mt-tab-container-item>
         </mt-tab-container>
     </div>
@@ -176,7 +245,7 @@
                 },
                 user: {},
                 now:'',
-                nextMonth:''
+                lastMonth:''
             }
         },
         mounted() {
@@ -224,10 +293,20 @@
                 })
             },
             finshed() {
-                let now =new Date();
-                this.now = now.Format("yyyy-MM-dd");
-                this.nextMonth =now.setMonth(nowdate.getMonth()-1)-Format("yyyy-MM-dd");
-                
+               this.resetDoing();
+                let that = this,
+                    parms = {
+                        page_size: this.unfinshData.pageSize,
+                        page_no: this.unfinshData.pageNo,
+                        // create_time_from:this.now,
+                        // create_time_to:this.lastMonth
+                    };
+                this.$api.post('/wechat/historyDispatchOrder', parms, function (data) {
+                    that.finshedData.data = data.obj.list;                 
+                    console.log(data)
+                }, function (error) {
+                    alert(error.msg)
+                })
             },
             sureGo(id, company_id, dispatch_no, depart_time, depart_remark) {
 
@@ -283,7 +362,12 @@
             //拨打电话
             phone(number) {
 
-            }        
+            },
+            resetDoing(){
+                let now =new Date();
+                this.now = now.Format("yyyy-MM-dd");
+                this.lastMonth =new Date(now.setMonth(now.getMonth()-1)).Format("yyyy-MM-dd");
+            }     
         }
     }
 </script>
@@ -324,6 +408,27 @@
         font-size: .4rem;
         color: rgb(255, 165, 0);
         padding-left: .3rem;
+    }
+    .doingSelect{
+      background:#fff
+    }
+    .selecondition{
+        display: flex;
+    /* justify-content: space-between; */
+    padding-left: 0.40625rem;
+    padding-right: 0.625rem;
+    height: 1.21875rem;
+    align-items: center;
+    }
+    .dateLable{
+        color: #9E9E9E;
+    }
+    .dateRange{
+        margin-left: 0.375rem;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #ccc;
     }
 </style>
 <style>
